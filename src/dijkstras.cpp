@@ -22,46 +22,59 @@ struct Tile{
         }
 };
 
+
+
 // Main Execution
 
 int main(int argc, char *argv[]) {
-    int num;
+
+    // DECLARE VARIABLES
+    int num, cost;
     char name;
-    int cost;
     
-    cin >> num;
     // READ IN COSTS
+    cin >> num;
     map<char, int> costs; 
-    for(int i = 0; i < num; i++){
+    for (int i = 0; i < num; i++) {
         cin >> name;
         cin >> cost;
         costs.insert(pair<char, int>(name, cost));
     }
-    for(map<char, int>::iterator it = costs.begin(); it!= costs.end(); ++it){
+
+    /*// TEST MAP OUTPUT
+    for (map<char, int>::iterator it = costs.begin(); it!= costs.end(); ++it) {
         cout << it->first << " " << it->second << endl;
-    }
+    }*/
     
     // READ IN MATRIX
-    int row;
-    int col;
+    int row, col;
     cin >> row >> col;
     
     char matrix[row][col];
-    for(int j = 0; j < row; j++){
-        for(int k = 0; k < col; k++){
+
+    for (int j = 0; j < row; j++) {
+        for (int k = 0; k < col; k++) {
             char value;
             cin >> value;
-            matrix[row][col] = value;
+            matrix[j][k] = value;
         }
     }
-    int startRow;
-    int startCol;
-    int endRow;
-    int endCol;
+
+    /*// TEST MATRIX OUTPUT
+    for (int a = 0; a < row; a++) {
+        for (int b = 0; b < col; b++) {
+            cout << matrix[a][b] << " ";
+        }
+        cout << endl;
+    }*/
+
+    int startRow, startCol, endRow, endCol;
     cin >> startRow >> startCol >> endRow >> endCol;
 
-    // Function that returns adjacent neighbors
     return 0;
 }
+
+// Function that returns adjacent neighbors
+
 
 // vim: set sts=4 sw=4 ts=8 expandtab ft=cpp:
