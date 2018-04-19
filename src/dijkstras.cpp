@@ -6,51 +6,82 @@
 #include <queue>
 using namespace std;
 
-map<int, int> path(int[50][50], int);
+//map<int, int> path(int[50][50], int);
 
 struct Tile{
     public:
-        Tile *prev;
-        pair<int, int> from;
-        pair<int, int> to;
-        int dist;
-        int tracker;
+       // Tile *prev;
+        pair<int, int> curr;
+        pair<int, int> prev;
+        int cost;
+        
 
         bool operator<(const Tile &t) const{
-            if(dist > t.dist) { return true;}
+            if(cost > t.cost) { return true;}
                 return false;
         }
 };
 
-map<pair<int, int>, pair<int, int>> dijkstras(int *matrix, int row, int col, pair<int, int> start, pair<int, int>end){
+map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int row, int col, pair<int, int> start, pair<int, int>end){
 
     priority_queue<Tile> frontier;
     map<pair<int, int>, pair<int, int>> marked;
-    Tile t = {NULL, pair<int, int>(0,0), pair<int,int>(0,0), 0, 0};
-    frontier.push(t);
-
+    Tile tile = {start, start, 0};
+    frontier.push(tile);
+    //tile = frontier.top();
+    cout<<tile.curr.first<<" "<<tile.curr.second<<"==========="<<endl;
+    int totalCost = 0;
     while(!frontier.empty()){
-        Tile curr = frontier.top();
+        cout<<"in loop"<<endl;
+        Tile t = frontier.top();
         frontier.pop();
-            
-        if (t.from.first - 1 >= 0 && marked.count(pair<int, int>(t.from.first - 1, t.from.second)) > 0) {      // Upper neighbor
+       // cout << t.curr.first << " " << t.curr.second << endl;
+        cout << "cost: " << t.cost << endl;
+        if(t.curr.first == end.first && t.curr.second == end.second){
+            totalCost = t.cost;
+            break;
+        }
+        
+        if(marked.count(t.curr)){
             continue;
+        }
+    
+        vector<pair<int,int>> neighbors;   
+        if (t.curr.first - 1 >= 0 && marked.count(pair<int, int>(t.curr.first - 1, t.curr.second)) > 0) {      // Upper neighbor
+            pair<int,int> upper(t.curr.first - 1, t.curr.second);
+            neighbors.push_back(upper);
         }
       
-         if (t.from.first + 1 < row && marked.count(pair<int, int>(t.from.first + 1, t.from.second)) > 0) { // Lower neighbor
-            continue;
+         if (t.curr.first + 1 < row && marked.count(pair<int, int>(t.curr.first + 1, t.curr.second)) > 0) { // Lower neighbor
+            pair<int,int> lower(t.curr.first + 1, t.curr.second);
+            neighbors.push_back(lower);
         }
 
-         if (t.from.second - 1 >= 0 && marked.count(pair<int, int>(t.from.first, t.from.second - 1)) > 0) {        // Left neighbor
-            continue;
+         if (t.curr.second - 1 >= 0 && marked.count(pair<int, int>(t.curr.first, t.curr.second - 1)) > 0) {        // Left neighbor
+            pair<int,int> left(t.curr.first, t.curr.second -1);
+            neighbors.push_back(left);
         }
      
-         if (t.from.second + 1 < col && marked.count(pair<int, int>(t.from.first, t.from.second + 1)) > 0) {   // Right neighbor
-            continue;
+         if (t.curr.second + 1 < col && marked.count(pair<int, int>(t.curr.first, t.curr.second + 1)) > 0) {   // Right neighbor
+            pair<int,int> right(t.curr.first, t.curr.second + 1);
+            neighbors.push_back(right);
         }
+        if(neighbors.empty()){
+           continue;
+        }
+        marked[t.curr] = t.prev;
+        // Loop over the neighbors
+        for(size_t i = 0; i <neighbors.size(); i++){
+            auto it = neighbors[i];
+            Tile newTile = {it, t.curr, matrix[it.first][it.second] + t.cost};   
+            frontier.push(newTile);
+        }
+
     }
-    
+
+    cout << totalCost;
     return marked;
+    
 }
 
 
@@ -75,26 +106,24 @@ int main(int argc, char *argv[]) {
     int row, col;
     cin >> row >> col;
     
-    char matrix[row][col];
+    vector<vector<int>> matrix;
 
     for (int j = 0; j < row; j++) {
+        vector<int> temp;
         for (int k = 0; k < col; k++) {
             char value;
             cin >> value;
-            matrix[j][k] = value;
+            temp.push_back(costs[value]);
         }
+        matrix.push_back(temp);
     }
-
-    /*// TEST MATRIX OUTPUT
-    for (int a = 0; a < row; a++) {
-        for (int b = 0; b < col; b++) {
-            cout << matrix[a][b] << " ";
-        }
-        cout << endl;
-    }*/
 
     int startRow, startCol, endRow, endCol;
     cin >> startRow >> startCol >> endRow >> endCol;
+
+    pair<int, int> start (startRow, startCol);
+    pair<int, int> end (endRow, endCol);
+    dijkstras(matrix, row, col, start, end);
 
     return 0;
 }
