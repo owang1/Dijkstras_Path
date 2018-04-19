@@ -33,24 +33,23 @@ map<pair<int, int>, pair<int, int>> dijkstras(int *matrix, int row, int col, pai
         Tile curr = frontier.top();
         frontier.pop();
             
-    if (t.from.first - 1 >= 0 && marked.count(pair<int, int>(t.from.first - 1, t.from.second)) > 0) {      // Upper neighbor
-         continue;
-     }
-  
-     if (t.from.first + 1 < row && marked.count(pair<int, int>(t.from.first + 1, t.from.second)) > 0) { // Lower neighbor
-         continue;
-    }
+        if (t.from.first - 1 >= 0 && marked.count(pair<int, int>(t.from.first - 1, t.from.second)) > 0) {      // Upper neighbor
+            continue;
+        }
+      
+         if (t.from.first + 1 < row && marked.count(pair<int, int>(t.from.first + 1, t.from.second)) > 0) { // Lower neighbor
+            continue;
+        }
 
-     if (t.from.second - 1 >= 0 && marked.count(pair<int, int>(t.from.first, t.from.second - 1)) > 0) {        // Left neighbor
-         continue;
+         if (t.from.second - 1 >= 0 && marked.count(pair<int, int>(t.from.first, t.from.second - 1)) > 0) {        // Left neighbor
+            continue;
+        }
+     
+         if (t.from.second + 1 < col && marked.count(pair<int, int>(t.from.first, t.from.second + 1)) > 0) {   // Right neighbor
+            continue;
+        }
     }
- 
-     if (t.from.second + 1 < col && marked.count(pair<int, int>(t.from.first, t.from.second + 1)) > 0) {   // Right neighbor
-          continue;
-     }
     
-
-     }
     return marked;
 }
 
