@@ -35,10 +35,11 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
         cout<<"in loop"<<endl;
         Tile t = frontier.top();
         frontier.pop();
-       // cout << t.curr.first << " " << t.curr.second << endl;
+        cout << t.curr.first << " " << t.curr.second << endl;
         cout << "cost: " << t.cost << endl;
         if(t.curr.first == end.first && t.curr.second == end.second){
             totalCost = t.cost;
+            cout<<"found end"<<endl;
             break;
         }
         
@@ -47,22 +48,23 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
         }
     
         vector<pair<int,int>> neighbors;   
-        if (t.curr.first - 1 >= 0 && marked.count(pair<int, int>(t.curr.first - 1, t.curr.second)) > 0) {      // Upper neighbor
+        if (t.curr.first - 1 >= 0 && marked.count(pair<int, int>(t.curr.first - 1, t.curr.second)) == 0) {      // Upper neighbor
             pair<int,int> upper(t.curr.first - 1, t.curr.second);
             neighbors.push_back(upper);
         }
       
-         if (t.curr.first + 1 < row && marked.count(pair<int, int>(t.curr.first + 1, t.curr.second)) > 0) { // Lower neighbor
+         if (t.curr.first + 1 < row && marked.count(pair<int, int>(t.curr.first + 1, t.curr.second)) == 0) { // Lower neighbor
             pair<int,int> lower(t.curr.first + 1, t.curr.second);
             neighbors.push_back(lower);
-        }
+            cout<<"added right"<<endl;
+         }
 
-         if (t.curr.second - 1 >= 0 && marked.count(pair<int, int>(t.curr.first, t.curr.second - 1)) > 0) {        // Left neighbor
+         if (t.curr.second - 1 >= 0 && marked.count(pair<int, int>(t.curr.first, t.curr.second - 1)) == 0) {        // Left neighbor
             pair<int,int> left(t.curr.first, t.curr.second -1);
             neighbors.push_back(left);
         }
      
-         if (t.curr.second + 1 < col && marked.count(pair<int, int>(t.curr.first, t.curr.second + 1)) > 0) {   // Right neighbor
+         if (t.curr.second + 1 < col && marked.count(pair<int, int>(t.curr.first, t.curr.second + 1)) == 0) {   // Right neighbor
             pair<int,int> right(t.curr.first, t.curr.second + 1);
             neighbors.push_back(right);
         }
@@ -73,6 +75,7 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
         // Loop over the neighbors
         for(size_t i = 0; i <neighbors.size(); i++){
             auto it = neighbors[i];
+            cout<<"adding to frontier "<< it.first<<" "<<it.second<<endl;
             Tile newTile = {it, t.curr, matrix[it.first][it.second] + t.cost};   
             frontier.push(newTile);
         }
