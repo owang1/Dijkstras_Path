@@ -22,6 +22,37 @@ struct Tile{
         }
 };
 
+map<pair<int, int>, pair<int, int>> dijkstras(int *matrix, int row, int col, pair<int, int> start, pair<int, int>end){
+
+    priority_queue<Tile> frontier;
+    map<pair<int, int>, pair<int, int>> marked;
+    Tile t = {NULL, pair<int, int>(0,0), pair<int,int>(0,0), 0, 0};
+    frontier.push(t);
+
+    while(!frontier.empty()){
+        Tile curr = frontier.top();
+        frontier.pop();
+            
+    if (t.from.first - 1 >= 0 && marked.count(pair<int, int>(t.from.first - 1, t.from.second)) > 0) {      // Upper neighbor
+         continue;
+     }
+  
+     if (t.from.first + 1 < row && marked.count(pair<int, int>(t.from.first + 1, t.from.second)) > 0) { // Lower neighbor
+         continue;
+    }
+
+     if (t.from.second - 1 >= 0 && marked.count(pair<int, int>(t.from.first, t.from.second - 1)) > 0) {        // Left neighbor
+         continue;
+    }
+ 
+     if (t.from.second + 1 < col && marked.count(pair<int, int>(t.from.first, t.from.second + 1)) > 0) {   // Right neighbor
+          continue;
+     }
+    
+
+     }
+    return marked;
+}
 
 
 // Main Execution
@@ -40,12 +71,7 @@ int main(int argc, char *argv[]) {
         cin >> cost;
         costs.insert(pair<char, int>(name, cost));
     }
-
-    /*// TEST MAP OUTPUT
-    for (map<char, int>::iterator it = costs.begin(); it!= costs.end(); ++it) {
-        cout << it->first << " " << it->second << endl;
-    }*/
-    
+ 
     // READ IN MATRIX
     int row, col;
     cin >> row >> col;
