@@ -6,27 +6,14 @@ finding on a 2D tile-based map.
 
 [Dijkstra's Algorithm]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
+-----------------------------------------------------------------------------
 
-Input
------
+Please note: The output files output1.txt and output2.txt were changed to match the output from our dijkstras.cpp after confirmation with Nate Kremer-Herman. Our diff1.txt and diff2.txt show the differences from the original output files and the output files created by our dijkstras.cpp code. The differences are as summarized here:
+    - For input2.txt, our dijkstras implementation chose to go to 6 4 instead of 5 5
+    - For input2.txt, our dijkstras implementation chose to go to 3 1 instead of 2 2, and 3 2 instead of 2 3
 
-    TILES_N
-    TILE_NAME_0	TILE_COST_0
-    ...
-    TILE_NAME_N-1	TILE_COST_N-1
-
-    MAP_ROWS MAP_COLUMNS
-    TILE_0_0    ...
-    ...
-
-    TRAVELER_START_ROW TRAVELER_START_COL
-    TRAVELER_END_ROW   TRAVELER_END_COL
-
-Output
-------
-
-    Cost
-    [(ROW_0, COL_0), ...]
+-----------------------------------------------------------------------------
+Questions:
 
 1. Confirmed
 2. Confirmed (use ttp://student01.cse.nd.edu:9777)
@@ -97,3 +84,5 @@ Average:
 |200-------------|0.450131--------|3.757031--------|
 |500-------------|3.322894--------|17.402344-------|
 |1000------------|14.941728-------|66.047656-------|
+
+4. 
