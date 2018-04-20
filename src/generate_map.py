@@ -31,7 +31,7 @@ for N in N_vals:
 			keys = keys + " " + key
 		keys = keys + "\n"
 
-	input_string = num_costs + "\n" + costs + N + "\n" + N + "\n" + keys + "0 0\n" + N + " " + N + "\n"
+	input_string = num_costs + "\n" + costs + N + " " + N + "\n" + keys + "0 0\n" + N + " " + N + "\n"
 	
 	# Run Command
 	command = "./measure ./dijkstras"
