@@ -13,7 +13,7 @@ import sys
 
 # Constants
 
-WWW_PORT = 1658 #port number
+WWW_PORT = 9777 #port number
 WWW_ROOT = os.path.abspath('../www')
 
 # Utility Functions
