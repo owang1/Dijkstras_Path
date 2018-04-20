@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 //map<int, int> path(int[50][50], int);
@@ -33,10 +34,6 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
     while(!frontier.empty()){
         Tile t = frontier.top();
         frontier.pop();
-        if(t.curr.first == end.first && t.curr.second == end.second){
-            totalCost = t.cost;
-            break;
-        }
         
         if(marked.count(t.curr)){
             continue;
@@ -65,7 +62,14 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
         if(neighbors.empty()){
            continue;
         }
+
         marked[t.curr] = t.prev;
+
+        if(t.curr.first == end.first && t.curr.second == end.second){
+            totalCost = t.cost;
+            break;
+        }
+        
         // Loop over the neighbors
         for(size_t i = 0; i <neighbors.size(); i++){
             auto it = neighbors[i];
@@ -75,9 +79,9 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
 
     }
 
+    totalCost = totalCost + matrix[start.first][start.second] - matrix[end.first][end.second];
     cout << totalCost << endl;
-    return marked;
-    
+    return marked; 
 }
 
 
@@ -122,8 +126,15 @@ int main(int argc, char *argv[]) {
     map<pair<int, int>, pair<int, int>> marked = dijkstras(matrix, row, col, start, end);
 
     // Output marked pairs
-    for(auto& it : marked){
-        cout << it.second.first << " " << it.second.second << "--" << endl;
+    vector<pair<int, int>> path;
+    while (end != start) {
+        path.push_back(end);
+        end = marked.find(end)->second;
+    }
+    path.push_back(start);
+    reverse(path.begin(), path.end());
+    for (auto it = path.begin(); it != path.end(); it++) {
+        cout << it->first << " " << it->second << endl;
     }
 
     return 0;
