@@ -12,6 +12,17 @@ Please note: The output files output1.txt and output2.txt were changed to match 
     - For input2.txt, our dijkstras implementation chose to go to 6 4 instead of 5 5
     - For input2.txt, our dijkstras implementation chose to go to 3 1 instead of 2 2, and 3 2 instead of 2 3
 
+Group contributions:
+    Yejee Oh (yoh1)
+        - Worked on dijkstras.cpp
+        - Wrote generate_map.py
+        - Ran tests (Question 3 in README.md)
+        - 10/10 would work with again
+    Olivia Wang (owang1)
+        - Worked on dijkstras.cpp
+        - Worked on README.md (Question 1, 2, 4)
+        - 10/10 would work with again
+
 -----------------------------------------------------------------------------
 Questions:
 
