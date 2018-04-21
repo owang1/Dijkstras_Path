@@ -7,11 +7,9 @@
 #include <algorithm>
 using namespace std;
 
-//map<int, int> path(int[50][50], int);
-
 struct Tile{
     public:
-       // Tile *prev;
+
         pair<int, int> curr;
         pair<int, int> prev;
         int cost;
@@ -38,7 +36,7 @@ map<pair<int, int>, pair<int, int>> dijkstras(vector<vector<int>> matrix, int ro
         if(marked.count(t.curr)){
             continue;
         }
-    
+        // Check for existence of neighbors, and push back into a vector of pairs   
         vector<pair<int,int>> neighbors;   
         if (t.curr.first - 1 >= 0 && marked.count(pair<int, int>(t.curr.first - 1, t.curr.second)) == 0) {      // Upper neighbor
             pair<int,int> upper(t.curr.first - 1, t.curr.second);
