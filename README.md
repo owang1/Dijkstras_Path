@@ -105,17 +105,17 @@ Average:
     It is a vector of dimension row x col, constants read in from the input stream. The 
     integer values within this 2D vector give the cost to leave each vertex.
 
-- Explain which graph representation you used and how you determined the relationship between
-  vertices include the edges and their weights.
+- Explain which graph representation you used and how you determined the relationship between vertices
+ include the edges and their weights.
     To find the weights, we first created a map called map<char, int> costs, which mapped
-    each char key to its corresponding cost value. This way, we could later convert the chars
+    each char key to its corresponding cost value. This way, we could later convert the chars 
     from the raw input into the correct integer weights.
     
     We used a nested for loop to read in and push back the values of the graph into our 2D
     vector matrix. Using a 2D vector was effective because it contained information on the
-    coordinates as well as the cost for each tile, as an int. We didn't to create an adjacency
-    list or matrix, because the adjacent neighbors of each tile could be easily found by moving
-    one to the left, right, up, or down. 
+    coordinates as well as the cost for each tile, as an int. We didn't to create an 
+    adjacency list or matrix, because the adjacent neighbors of each tile could be easily 
+    found by looking at the elements to the left, right, up, and down (when they exist). 
 
 - What is the complexity of your implementation of Dijkstra's Algorithm?
     O(V^2) where V is the number of vertices in the graph (V = row * col).   
@@ -150,5 +150,4 @@ Average:
     datasets to that of larger datasets like when N = 1000. The time and memory usages increased
     more than just linearly, which makes sense considering the theoritical time complexity of
     O(N^2). Memory usage stayed relatively small for N values <= 100, but increased by almost 
-    4x going from N=500 to N=1000, even though that was a linear increase. 
-
+    4x going from N=500 to N=1000, even though that was a linear increase.
